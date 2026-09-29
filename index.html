@@ -2,9 +2,99 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Dự án đầu tiên</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập / Đăng ký với Firebase</title>
+    <style>
+        body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f4f9; margin: 0; }
+        .card { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 300px; text-align: center; }
+        input { width: 100%; padding: 10px; margin: 8px 0; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        button { width: 100%; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 5px; }
+        button.signup { background-color: #28a745; }
+        button.logout { background-color: #dc3545; }
+        #user-info { display: none; }
+        .error { color: red; font-size: 14px; margin-top: 10px; }
+    </style>
 </head>
 <body>
-    <h1>Chào mừng đến với trang web GitHub Pages của tôi!</h1>
+
+    <div class="card" id="auth-card">
+        <h2>Đăng Nhập</h2>
+        <input type="email" id="email" placeholder="Email của bạn">
+        <input type="password" id="password" placeholder="Mật khẩu (ít nhất 6 ký tự)">
+        <button id="btn-login">Đăng Nhập</button>
+        <button id="btn-signup" class="signup">Đăng Ký</button>
+        <p id="error-msg" class="error"></p>
+    </div>
+
+    <div class="card" id="user-info">
+        <h2>Xin chào!</h2>
+        <p id="user-email"></p>
+        <button id="btn-logout" class="logout">Đăng Xuất</button>
+    </div>
+
+    <!-- Nhập Firebase SDK v10 dưới dạng Module ES6 -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { 
+            getAuth, 
+            createUserWithEmailAndPassword, 
+            signInWithEmailAndPassword, 
+            onAuthStateChanged, 
+            signOut 
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        // ⚠️ THAY THẾ BẰNG THÔNG TIN CẤU HÌNH FIREBASE CỦA BẠN
+        const firebaseConfig = {
+            apiKey: "AIzaSy...",
+            authDomain: "your-app.firebaseapp.com",
+            projectId: "your-app",
+            storageBucket: "your-app.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:abc123def456"
+        };
+
+        // Khởi tạo Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const errorMsg = document.getElementById('error-msg');
+
+        // 1. Xử lý Đăng Ký
+        document.getElementById('btn-signup').addEventListener('click', () => {
+            const email = emailInput.value;
+            const password = passwordInput.value;
+            createUserWithEmailAndPassword(auth, email, password)
+                .then(() => { errorMsg.innerText = ""; })
+                .catch(error => { errorMsg.innerText = error.message; });
+        });
+
+        // 2. Xử lý Đăng Nhập
+        document.getElementById('btn-login').addEventListener('click', () => {
+            const email = emailInput.value;
+            const password = passwordInput.value;
+            signInWithEmailAndPassword(auth, email, password)
+                .then(() => { errorMsg.innerText = ""; })
+                .catch(error => { errorMsg.innerText = error.message; });
+        });
+
+        // 3. Xử lý Đăng Xuất
+        document.getElementById('btn-logout').addEventListener('click', () => {
+            signOut(auth);
+        });
+
+        // 4. Theo dõi trạng thái đăng nhập của người dùng
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById('auth-card').style.display = 'none';
+                document.getElementById('user-info').style.display = 'block';
+                document.getElementById('user-email').innerText = user.email;
+            } else {
+                document.getElementById('auth-card').style.display = 'block';
+                document.getElementById('user-info').style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>

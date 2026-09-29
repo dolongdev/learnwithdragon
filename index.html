@@ -1,20 +1,70 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng nhập / Đăng ký với Firebase</title>
     <style>
-        body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f4f9; margin: 0; }
-        .card { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 300px; text-align: center; }
-        input { width: 100%; padding: 10px; margin: 8px 0; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
-        button { width: 100%; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 5px; }
-        button.signup { background-color: #28a745; }
-        button.logout { background-color: #dc3545; }
-        #user-info { display: none; }
-        .error { color: red; font-size: 14px; margin-top: 10px; }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+            margin: 0;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        button.signup {
+            background-color: #28a745;
+        }
+
+        button.logout {
+            background-color: #dc3545;
+        }
+
+        #user-info {
+            display: none;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+        }
     </style>
 </head>
+
 <body>
 
     <div class="card" id="auth-card">
@@ -45,12 +95,13 @@
 
         // ⚠️ THAY THẾ BẰNG THÔNG TIN CẤU HÌNH FIREBASE CỦA BẠN
         const firebaseConfig = {
-            apiKey: "AIzaSy...",
-            authDomain: "your-app.firebaseapp.com",
-            projectId: "your-app",
-            storageBucket: "your-app.appspot.com",
-            messagingSenderId: "123456789",
-            appId: "1:123456789:web:abc123def456"
+            apiKey: "AIzaSyCk114bNyyI0xT2k7NYEV0opnjTtK9uuHs",
+            authDomain: "learnwithdragon.firebaseapp.com",
+            projectId: "learnwithdragon",
+            storageBucket: "learnwithdragon.firebasestorage.app",
+            messagingSenderId: "324441345747",
+            appId: "1:324441345747:web:9617c24b03f830ebd68e26",
+            measurementId: "G-K6P991SJSF"
         };
 
         // Khởi tạo Firebase
@@ -97,4 +148,5 @@
         });
     </script>
 </body>
+
 </html>
